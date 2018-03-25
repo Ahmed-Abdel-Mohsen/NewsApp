@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
-    private String REQUEST_URL = BuildConfig.MY_API_KEY;
+    private String REQUEST_URL = "https://content.guardianapis.com/search?api-key=test";
     private NewsAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private static final int NEWS_LOADER_ID = 1;
