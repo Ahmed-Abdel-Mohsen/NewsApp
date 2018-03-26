@@ -1,20 +1,20 @@
 package com.example.android.newsapp;
 
-/**
- * Created by ahmed on 3/24/2018.
- */
+
 
 public class News {
     private String mTitle;
-    private String mType;
+    private String mSection;
     private String mDate;
     private String mUrl;
+    private String mAuthor;
 
-    public News(String title, String type, String date, String url) {
+    public News(String title, String type, String date, String url, String author) {
         this.mTitle = title;
-        this.mType = type;
+        this.mSection = type;
         this.mDate = date;
         this.mUrl = url;
+        this.mAuthor = author;
     }
 
     public String getTitle() {
@@ -26,11 +26,11 @@ public class News {
     }
 
     public String getType() {
-        return mType;
+        return mSection;
     }
 
     public void setType(String type) {
-        this.mType = type;
+        this.mSection = type;
     }
 
     public String getDate() {
@@ -49,11 +49,19 @@ public class News {
         this.mUrl = url;
     }
 
+    public String getAuthor() {
+        return mAuthor;
+    }
+
+    public void setAuthor(String author) {
+        this.mAuthor = author;
+    }
+
     @Override
     public String toString() {
         return "News{" +
                 "title:" + this.mTitle +
-                "\ntype:" + this.mType +
+                "\ntype:" + this.mSection +
                 "\ndate:" + this.mDate +
                 "\nurl:" + this.mUrl + "}";
     }

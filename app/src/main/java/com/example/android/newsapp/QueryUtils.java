@@ -102,9 +102,17 @@ public final class QueryUtils {
             JSONArray results = response.getJSONArray("results");
             for (int i = 0; i < results.length(); i++) {
                 JSONObject jsonObject = results.getJSONObject(i);
+                String title = jsonObject.getString("webTitle");
                 String date = jsonObject.getString("webPublicationDate");
-                News temp = new News(jsonObject.getString("webTitle"), jsonObject.getString("pillarName"),
-                        date.substring(0, 10), jsonObject.getString("webUrl"));
+                String section = jsonObject.getString("sectionName");
+                String url = jsonObject.getString("webUrl");
+                JSONArray tags = jsonObject.getJSONArray("tags");
+                String author = "Unknown";
+                if (tags.length() > 0) {
+                    author = tags.getJSONObject(0).getString("webTitle");
+                }
+                News temp = new News(title, section,
+                        date.substring(0, 10), url, author);
                 news.add(temp);
             }
         } catch (JSONException e) {

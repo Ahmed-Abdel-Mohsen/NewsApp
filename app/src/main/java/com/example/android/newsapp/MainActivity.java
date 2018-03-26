@@ -3,7 +3,6 @@ package com.example.android.newsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
-    private String REQUEST_URL = "https://content.guardianapis.com/search?api-key=test";
+    private String REQUEST_URL = "http://content.guardianapis.com/search?show-references=author&show-tags=contributor&api-key=test&q=news";
     private NewsAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private static final int NEWS_LOADER_ID = 1;

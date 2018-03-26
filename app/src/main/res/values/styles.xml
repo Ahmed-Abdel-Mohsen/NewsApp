@@ -20,6 +20,12 @@
         <item name="android:paddingLeft">16dp</item>
     </style>
 
+    <style name="author" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textColor">#E43F3F</item>
+    </style>
+
     <style name="type" parent="Base.TextAppearance.AppCompat.Small">
         <item name="android:paddingBottom">8dp</item>
         <item name="android:paddingRight">16dp</item>

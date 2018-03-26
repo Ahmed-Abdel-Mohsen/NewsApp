@@ -12,6 +12,13 @@
         android:layout_height="wrap_content"
         tools:text="Boat Race 2018: Cambridge v Oxford in men's race – live!" />
 
+    <TextView
+        android:id="@+id/news_author"
+        style="@style/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Mark Rice-Oxley" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
