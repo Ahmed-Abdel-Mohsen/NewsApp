@@ -2,13 +2,17 @@ package com.example.android.newsapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Loader;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
-    private String REQUEST_URL = "http://content.guardianapis.com/search?show-references=author&show-tags=contributor&api-key=test&q=news";
+    private String REQUEST_URL = "https://content.guardianapis.com/search";
     private NewsAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private static final int NEWS_LOADER_ID = 1;
@@ -32,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
 
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        mEmptyStateTextView =  findViewById(R.id.empty_view);
 
-        ListView newsListView = (ListView) findViewById(R.id.list);
+        ListView newsListView =  findViewById(R.id.list);
         newsListView.setEmptyView(mEmptyStateTextView);
 
         newsListView.setAdapter(mAdapter);
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         if (isConnected) {
             getLoaderManager().initLoader(NEWS_LOADER_ID, null, this);
         } else {
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
+            ProgressBar progressBar = findViewById(R.id.loading_spinner);
             progressBar.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet);
         }
@@ -64,13 +68,49 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        return new NewsLoader(this, REQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String topic = sharedPrefs.getString(
+                getString(R.string.settings_topic_key),
+                getString(R.string.settings_topic_default));
+
+        String fromDate = sharedPrefs.getString(
+                getString(R.string.settings_from_date_key),
+                getString(R.string.settings_from_date_default)
+        );
+        Uri uriBase = Uri.parse(REQUEST_URL);
+        Uri.Builder uriBuilder = uriBase.buildUpon();
+        uriBuilder.appendQueryParameter("show-references", "author");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("api-key", "test");
+        uriBuilder.appendQueryParameter("q", topic);
+        uriBuilder.appendQueryParameter("from-date", fromDate);
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
+        ProgressBar progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.GONE);
         mEmptyStateTextView.setText(R.string.no_news);
         if (news == null || news.size() < 1)

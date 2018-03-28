@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_from_date_labels">
+        <item>@string/settings_from_date_january_label</item>
+        <item>@string/settings_from_date_february_label</item>
+        <item>@string/settings_from_date_march_label</item>
+    </string-array>
+
+    <string-array name="settings_from_date_values">
+        <item>@string/settings_from_date_january_value</item>
+        <item>@string/settings_from_date_february_value</item>
+        <item>@string/settings_from_date_march_value</item>
+    </string-array>
+</resources>

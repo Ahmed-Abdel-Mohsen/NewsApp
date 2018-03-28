@@ -16,11 +16,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ahmed on 3/24/2018.
- */
 
 public final class QueryUtils {
+
+    private final static int CONNECT_TIMEOUT = 1000;
+    private final static int READ_TIMEOUT = 1500;
 
     public static List<News> fetchNewsData(String requestUrl) {
         URL url = createUrl(requestUrl);
@@ -30,8 +30,7 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e("fetchNewsData Exception", e.toString());
         }
-        List<News> news = extractNews(jsonResponse);
-        return news;
+        return extractNews(jsonResponse);
     }
 
     private static URL createUrl(String stringUrl) {
@@ -53,8 +52,8 @@ public final class QueryUtils {
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
-            urlConnection.setConnectTimeout(1000);
-            urlConnection.setReadTimeout(1000);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
+            urlConnection.setReadTimeout(READ_TIMEOUT);
             urlConnection.connect();
 
             if (urlConnection.getResponseCode() == 200) {

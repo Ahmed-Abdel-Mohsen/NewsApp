@@ -2,4 +2,25 @@
     <string name="app_name">NewsApp</string>
     <string name="no_news">No news found,\nTry again later.</string>
     <string name="no_internet">No Internet Connection.</string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+    <string name="settings_topic_label">Topic</string>
+    <string name="settings_topic_key" translatable="false">topic</string>
+    <string name="settings_topic_default" translatable="false">news</string>
+
+
+    <string name="settings_from_date_label">From Date</string>
+    <string name="settings_from_date_key" translatable="false">from_date</string>
+    <string name="settings_from_date_default" translatable="false">@string/settings_from_date_january_value</string>
+
+
+    <string name="settings_from_date_january_label">January</string>
+    <string name="settings_from_date_january_value" translatable="false">2018-01-01</string>
+
+    <string name="settings_from_date_february_label">February</string>
+    <string name="settings_from_date_february_value" translatable="false">2018-02-01</string>
+
+    <string name="settings_from_date_march_label">March</string>
+    <string name="settings_from_date_march_value" translatable="false">2018-03-01</string>
 </resources>
